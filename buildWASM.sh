@@ -54,12 +54,12 @@ if [ ! -f $emscripten_tool_chain_file ]; then
         echo "EMSCRIPTEN toolchain not found"
     fi
 fi    
-WASM_build_directory="../buildWASM"
+WASM_build_directory="./buildWASM"
 
 mkdir -p $WASM_build_directory
 $cmake_program \
     install \
-    -S ../src/wasm \
+    -S ./src/wasm \
     -B $WASM_build_directory \
     -G "Unix Makefiles" \
     -D CMAKE_TOOLCHAIN_FILE=$emscripten_tool_chain_file \
@@ -67,4 +67,4 @@ $cmake_program \
 
 cd $WASM_build_directory
 $make_program $make_configuration
-cd ../scripts
+cd ..

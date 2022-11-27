@@ -59,7 +59,8 @@ target_compile_options(MeshGenerator PRIVATE
 target_link_options(MeshGenerator PRIVATE 
     "SHELL:-s WASM=1" 
     "SHELL:-s EXPORT_NAME=\"'MeshGenerator'\""
-    "-lnodefs.js"
+    "SHELL:-s ENVIRONMENT=web"
+    #"-lnodefs.js"
     )
 
 add_executable(

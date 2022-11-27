@@ -4,6 +4,8 @@ import { TransformControls } from 'three/examples/jsm/controls/TransformControls
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import Stats from 'three/examples/jsm/libs/stats.module' 
 import { GUI } from 'dat.gui'
+// @ts-ignore
+import * as MeshGenerator from '../../buildWASM/MeshGenerator.js';
 
 export const helloCube = (canvas: any) => {
     const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true, alpha: true});
@@ -104,6 +106,12 @@ export const helloCube = (canvas: any) => {
     }
     requestAnimationFrame(animate);
 }
+
+
+MeshGenerator().then((meshGenerator: any) => {
+    console.log(meshGenerator);
+    console.log(meshGenerator.getText());
+});
 
 // @ts-ignore
 helloCube(three_canvas);

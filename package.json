@@ -6,9 +6,11 @@
     "install:ncu": "npm install -g npm-check-updates",
     "install:webpack": "npm install --save-dev webpack",
     "update:modules": "ncu -u && npm update && npm i",
+    "copy:wasm": "copyfiles --flat ./buildWasm/*.wasm ./dist/client/",
+    "build:wasm": "./buildWASM.sh",
     "build:client": "webpack --config ./src/client/webpack.prod.js",
     "build:server": "tsc -p ./src/server",
-    "build": "npm run build:client && npm run build:server",
+    "build": "npm run build:wasm && npm run copy:wasm && npm run build:client && npm run build:server",
     "dev": "webpack serve --config ./src/client/webpack.dev.js",
     "start": "node ./dist/server/threeServer.js"
   },
