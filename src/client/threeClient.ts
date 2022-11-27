@@ -107,10 +107,16 @@ export const helloCube = (canvas: any) => {
     requestAnimationFrame(animate);
 }
 
+class MeshGeneratorIOContext {
+    public static log(message: string) {
+        console.log(message);
+    }
+}
 
 MeshGenerator().then((meshGenerator: any) => {
     console.log(meshGenerator);
     console.log(meshGenerator.getText());
+    meshGenerator.setIOContext(MeshGeneratorIOContext);
 });
 
 // @ts-ignore
