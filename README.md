@@ -1,2 +1,3 @@
-# node-ts-three-js-wasm
-Node.js, TypeScript, Three.js, WASM Boilerplate
+# node-ts-three-js--hello-cube
+
+Node.js, TypeScript, Three.js Boilerplate
