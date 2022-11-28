@@ -7,7 +7,23 @@ import { GUI } from 'dat.gui'
 // @ts-ignore
 import * as MeshGenerator from '../../buildWASM/MeshGenerator.js';
 
-export const helloCube = (canvas: any) => {
+export const helloCube = async (canvas: any) => {
+    const meshGenerator = await MeshGenerator();
+    console.log('MeshGenerator version: ' + meshGenerator.getVersion());
+    meshGenerator.setIOContext({
+        log: (message: string) => console.log(message),
+        newShape: (id: string, vertices: Float32Array, indices: Uint32Array, normals: Float32Array, uvs: Float32Array): void => {
+            console.log('newShape: ' + id);
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.BufferAttribute(Float32Array.from(vertices), 3));
+            geometry.setAttribute('normal', new THREE.BufferAttribute(Float32Array.from(normals), 3));
+            geometry.setAttribute('uv', new THREE.BufferAttribute(Float32Array.from(uvs), 3));
+            geometry.setIndex(new THREE.BufferAttribute(Uint32Array.from(indices), 1));
+            geometry.rotateX(Math.PI/2);
+            mesh.geometry = geometry;
+        }
+    });
+
     const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true, alpha: true});
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
@@ -21,8 +37,8 @@ export const helloCube = (canvas: any) => {
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.y = 4;
-    camera.position.z = 8;
+    camera.position.y = 2;
+    camera.position.z = 4;
     const controls = new OrbitControls(camera, renderer.domElement)
 
     const scene = new THREE.Scene();
@@ -56,12 +72,12 @@ export const helloCube = (canvas: any) => {
     groundMesh.receiveShadow = true;
     scene.add(groundMesh);
 
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshPhysicalMaterial({color: 0xe02020});
-    const mesh = new THREE.Mesh(geometry, material);
+    const geometry = new THREE.BoxGeometry(2, 2, 2);
+    const material = new THREE.MeshPhysicalMaterial({color: 0xe02020, side: THREE.DoubleSide});
+    const mesh: THREE.Mesh = new THREE.Mesh(geometry, material);
     mesh.castShadow = true;
     mesh.receiveShadow = true;
-    mesh.position.y = 0.5
+    mesh.position.y = 1
     scene.add(mesh);
     const meshTransformControl = new TransformControls(camera, renderer.domElement);
     meshTransformControl.addEventListener( 'dragging-changed', (event: any) => {
@@ -70,6 +86,8 @@ export const helloCube = (canvas: any) => {
     meshTransformControl.attach(mesh);
     meshTransformControl.visible = false;
     scene.add(meshTransformControl);
+
+    meshGenerator.createShape("my shape", 2);
 
     // @ts-ignore
     const stats = new Stats();
@@ -106,18 +124,6 @@ export const helloCube = (canvas: any) => {
     }
     requestAnimationFrame(animate);
 }
-
-class MeshGeneratorIOContext {
-    public static log(message: string) {
-        console.log(message);
-    }
-}
-
-MeshGenerator().then((meshGenerator: any) => {
-    console.log(meshGenerator);
-    console.log(meshGenerator.getText());
-    meshGenerator.setIOContext(MeshGeneratorIOContext);
-});
 
 // @ts-ignore
 helloCube(three_canvas);
