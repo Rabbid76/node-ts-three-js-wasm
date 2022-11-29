@@ -12,8 +12,8 @@ export const helloCube = async (canvas: any) => {
     console.log('MeshGenerator version: ' + meshGenerator.getVersion());
     meshGenerator.setIOContext({
         log: (message: string) => console.log(message),
-        newShape: (id: string, vertices: Float32Array, indices: Uint32Array, normals: Float32Array, uvs: Float32Array): void => {
-            console.log('newShape: ' + id);
+        newMesh: (id: string, vertices: Float32Array, indices: Uint32Array, normals: Float32Array, uvs: Float32Array): void => {
+            console.log('newMesh: ' + id);
             const geometry = new THREE.BufferGeometry();
             geometry.setAttribute('position', new THREE.BufferAttribute(Float32Array.from(vertices), 3));
             geometry.setAttribute('normal', new THREE.BufferAttribute(Float32Array.from(normals), 3));
@@ -72,12 +72,13 @@ export const helloCube = async (canvas: any) => {
     groundMesh.receiveShadow = true;
     scene.add(groundMesh);
 
-    const geometry = new THREE.BoxGeometry(2, 2, 2);
-    const material = new THREE.MeshPhysicalMaterial({color: 0xe02020, side: THREE.DoubleSide});
+    const size = 2;
+    const geometry = new THREE.BoxGeometry(size, size, size);
+    const material = new THREE.MeshPhysicalMaterial({color: 0xe02020});
     const mesh: THREE.Mesh = new THREE.Mesh(geometry, material);
     mesh.castShadow = true;
     mesh.receiveShadow = true;
-    mesh.position.y = 1
+    mesh.position.y = size / 2;
     scene.add(mesh);
     const meshTransformControl = new TransformControls(camera, renderer.domElement);
     meshTransformControl.addEventListener( 'dragging-changed', (event: any) => {
@@ -87,7 +88,7 @@ export const helloCube = async (canvas: any) => {
     meshTransformControl.visible = false;
     scene.add(meshTransformControl);
 
-    meshGenerator.createShape("my shape", 2);
+    meshGenerator.createMesh("my shape", 2);
 
     // @ts-ignore
     const stats = new Stats();
