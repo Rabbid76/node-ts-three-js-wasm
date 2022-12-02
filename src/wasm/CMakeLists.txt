@@ -9,7 +9,7 @@ add_compile_options(
     -Wsign-conversion
     -Wno-unused-parameter
     -Wno-unused-command-line-argument
-    -Werror
+    #-Werror
     )
 
 if(CMAKE_BUILD_TYPE MATCHES Debug)
@@ -45,32 +45,31 @@ else(DEBUG)
 endif()
 
 add_compile_definitions(USE_MAKE_SHARED_BYPASS)
-add_compile_options(${EMSCRIPTEN_OPTIONS})
-add_link_options(${EMSCRIPTEN_OPTIONS})
 
 add_executable(
     MeshGenerator
     emscriptenBindings.cpp
     )
-
 target_compile_options(MeshGenerator PRIVATE
+    ${EMSCRIPTEN_OPTIONS}
     "SHELL:-s WASM=1"
     )
 target_link_options(MeshGenerator PRIVATE 
+    ${EMSCRIPTEN_OPTIONS}
     "SHELL:-s WASM=1" 
     "SHELL:-s EXPORT_NAME=\"'MeshGenerator'\""
     "SHELL:-s ENVIRONMENT=web"
     #"-lnodefs.js"
     )
 
+set(EMSCRIPTEN_ASMJS_OPTIONS
+    ${EMSCRIPTEN_OPTIONS}
+    "SHELL:-s WASM=0"
+    "SHELL:--memory-init-file 1"
+    )
 add_executable(
     MeshGeneratorJs
     emscriptenBindings.cpp
     )
-
-set(EMSCRIPTEN_ASMJS_OPTIONS
-    "SHELL:-s WASM=0"
-    "SHELL:--memory-init-file 1"
-    )
 target_compile_options(MeshGeneratorJs PRIVATE ${EMSCRIPTEN_ASMJS_OPTIONS})
-target_link_options(MeshGeneratorJs PRIVATE ${EMSCRIPTEN_ASMJS_OPTIONS} "SHELL:-s EXPORT_NAME=\"'RoomleCore'\"")
+target_link_options(MeshGeneratorJs PRIVATE ${EMSCRIPTEN_ASMJS_OPTIONS} "SHELL:-s EXPORT_NAME=\"'MeshGenerator'\"")
