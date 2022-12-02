@@ -1,4 +1,4 @@
-#include <emscripten.h>
+//#include <emscripten.h>
 #include <emscripten/bind.h>
 #include <emscripten/val.h>
 #include <array>
@@ -6,6 +6,7 @@
 #include <iostream>
 #include <numbers>
 #include <numeric>
+#include <sstream>
 #include <string>
 
 emscripten::val globalIOContext = emscripten::val::null();
@@ -57,7 +58,7 @@ namespace
 
    void createMesh(std::string id, float size)
    {
-      std::cout << "LOG: " << "createMesh" << " " << id << " " << size << std::endl;
+      log((std::stringstream() << "LOG: " << "createMesh" << " " << id << " " << size).str());
 
       std::vector<float> vertices;
       std::vector<float> normals;
