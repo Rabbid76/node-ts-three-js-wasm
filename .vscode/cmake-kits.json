@@ -1,0 +1,7 @@
+[
+   {
+      "name": "Emscripte lokal emsdk",
+      "toolchainFile": "${env.EMSDK}/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"
+   }
+]
+

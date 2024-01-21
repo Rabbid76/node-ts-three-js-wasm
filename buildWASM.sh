@@ -47,12 +47,9 @@ if (($gnu_build != 0)); then
     fi
 fi 
 
-emscripten_tool_chain_file="/Users/$USER/source/emscripten/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" 
+emscripten_tool_chain_file="$EMSDK/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" 
 if [ ! -f $emscripten_tool_chain_file ]; then
-    emscripten_tool_chain_file="/Users/$USER/Dev/devtools/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" 
-    if [ ! -f $emscripten_tool_chain_file ]; then
-        echo "EMSCRIPTEN toolchain not found"
-    fi
+   echo "EMSCRIPTEN toolchain not found"
 fi    
 WASM_build_directory="./buildWASM"
 

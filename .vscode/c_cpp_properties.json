@@ -4,7 +4,7 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/Users/gernot/source/emscripten/emsdk/upstream/emscripten/system/include"
+                "${env.EMSDK}/upstream/emscripten/system/include"
             ],
             "defines": [],
             "macFrameworkPath": [
