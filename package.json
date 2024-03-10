@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "all": "npm i && npm run update:modules && npm run build && npm start",
     "update:modules": "ncu -u && npm update && npm i",
     "copy:wasm": "copyfiles --flat ./buildWasm/*.wasm ./dist/client/",
     "build:wasm": "./buildWASM.sh && npm run copy:wasm",
     "build:client": "webpack --config ./src/client/webpack.prod.js",
     "build:server": "tsc -p ./src/server",
+    "build:ts": "npm run build:client && npm run build:server",
     "build": "npm run build:wasm  && npm run build:client && npm run build:server",
     "dev": "webpack serve --config ./src/client/webpack.dev.js",
     "start": "node ./dist/server/threeServer.js"
@@ -17,21 +19,21 @@
   "devDependencies": {
     "@types/dat.gui": "^0.7.12",
     "@types/express": "^4.17.21",
-    "@types/node": "^20.11.5",
-    "@types/three": "^0.160.0",
+    "@types/node": "^20.11.25",
+    "@types/three": "^0.162.0",
     "copyfiles": "^2.4.1",
     "dat.gui": "^0.7.9",
     "install-peers": "^1.0.4",
-    "npm-check-updates": "^16.14.12",
+    "npm-check-updates": "^16.14.15",
     "ts-loader": "^9.5.1",
-    "typescript": "^5.3.3",
-    "webpack": "^5.89.0",
+    "typescript": "^5.4.2",
+    "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1",
+    "webpack-dev-server": "^5.0.2",
     "webpack-merge": "^5.10.0"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "three": "^0.160.0"
+    "express": "^4.18.3",
+    "three": "^0.162.0"
   }
 }

@@ -32,10 +32,6 @@ export const helloCube = async (canvas: any) => {
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.setSize(window.innerWidth, window.innerHeight)
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.outputEncoding = THREE.LinearEncoding;
-    //renderer.toneMapping = THREE.NoToneMapping;
-    //renderer.outputEncoding = THREE.sRGBEncoding;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.y = 2;

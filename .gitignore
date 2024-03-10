@@ -1,3 +1,4 @@
 build
-buildWASM
+buildWASM/*
+!buildWASM/MeshGenerator.js
 node_modules

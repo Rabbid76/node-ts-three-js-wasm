@@ -21,7 +21,6 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
 endif()
 
 set(EMSCRIPTEN_OPTIONS
-    "SHELL:-s DISABLE_EXCEPTION_CATCHING=0"
     "SHELL:-s FILESYSTEM=0"
     "SHELL:-s MODULARIZE=1"
     "-lembind"
@@ -34,7 +33,7 @@ if (DEBUG)
         "SHELL:-s DEMANGLE_SUPPORT=1"
         "SHELL:-s ASSERTIONS=2"
     )
-else(DEBUG)
+else()
     # Optimizations
     # see <https://emscripten.org/docs/optimizing/Optimizing-Code.html>
     list(APPEND EMSCRIPTEN_OPTIONS
@@ -42,6 +41,16 @@ else(DEBUG)
         -flto                       # link time optimization
         "SHELL:--closure 1"         # Use the closure compiler; reduce the size of the support JavaScript code
     )
+endif()
+
+if (DEBUG)
+    set(EMSCRIPTEN_EXCEPTION_OPTIONS
+        "SHELL:-s DISABLE_EXCEPTION_CATCHING=0"
+        )
+else()
+    set(EMSCRIPTEN_EXCEPTION_OPTIONS
+        "-fwasm-exceptions"
+        )
 endif()
 
 add_compile_definitions(USE_MAKE_SHARED_BYPASS)
@@ -52,10 +61,12 @@ add_executable(
     )
 target_compile_options(MeshGenerator PRIVATE
     ${EMSCRIPTEN_OPTIONS}
+    ${EMSCRIPTEN_EXCEPTION_OPTIONS}
     "SHELL:-s WASM=1"
     )
 target_link_options(MeshGenerator PRIVATE 
     ${EMSCRIPTEN_OPTIONS}
+    ${EMSCRIPTEN_EXCEPTION_OPTIONS}
     "SHELL:-s WASM=1" 
     "SHELL:-s EXPORT_NAME=\"'MeshGenerator'\""
     "SHELL:-s ENVIRONMENT=web"
