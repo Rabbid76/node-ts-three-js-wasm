@@ -24,7 +24,7 @@
     "copyfiles": "^2.4.1",
     "dat.gui": "^0.7.9",
     "install-peers": "^1.0.4",
-    "npm-check-updates": "^16.14.17",
+    "npm-check-updates": "^16.14.18",
     "ts-loader": "^9.5.1",
     "typescript": "^5.4.3",
     "webpack": "^5.91.0",
@@ -33,7 +33,7 @@
     "webpack-merge": "^5.10.0"
   },
   "dependencies": {
-    "express": "^4.19.1",
+    "express": "^4.19.2",
     "three": "^0.162.0"
   }
 }
