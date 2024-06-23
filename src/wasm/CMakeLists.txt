@@ -76,7 +76,6 @@ target_link_options(MeshGenerator PRIVATE
 set(EMSCRIPTEN_ASMJS_OPTIONS
     ${EMSCRIPTEN_OPTIONS}
     "SHELL:-s WASM=0"
-    "SHELL:--memory-init-file 1"
     )
 add_executable(
     MeshGeneratorJs
