@@ -41,7 +41,7 @@ export const helloCube = async (canvas: any) => {
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xc0c0c0);
     const pmremGenerator = new THREE.PMREMGenerator(renderer);
-    const environmentTexture = pmremGenerator.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+    const environmentTexture = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
     scene.environment = environmentTexture;
     scene.background = environmentTexture;
 
