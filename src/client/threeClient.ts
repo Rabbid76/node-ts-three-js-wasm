@@ -59,8 +59,8 @@ export const helloCube = async (canvas: any) => {
         controls.enabled = !event.value;
     });
     lightTransformControl.attach(directionalLight);
-    lightTransformControl.visible = false;
-    scene.add(lightTransformControl);
+    lightTransformControl.getHelper().visible = false;
+    scene.add(lightTransformControl.getHelper());
     
     const groundGeometry = new THREE.PlaneGeometry(10, 10);
     groundGeometry.rotateX(-Math.PI / 2);
@@ -82,8 +82,8 @@ export const helloCube = async (canvas: any) => {
         controls.enabled = !event.value;
     });
     meshTransformControl.attach(mesh);
-    meshTransformControl.visible = false;
-    scene.add(meshTransformControl);
+    meshTransformControl.getHelper().visible = false;
+    scene.add(meshTransformControl.getHelper());
 
     meshGenerator.createMesh("my shape", 2);
 
@@ -92,11 +92,11 @@ export const helloCube = async (canvas: any) => {
     document.body.appendChild(stats.dom);
     const gui = new GUI();
     const uiProperties = {
-        'mesh transform control': meshTransformControl.visible,
-        'light transform control': lightTransformControl.visible
+        'mesh transform control': meshTransformControl.getHelper().visible,
+        'light transform control': lightTransformControl.getHelper().visible
     }
-    gui.add(uiProperties, 'mesh transform control').onChange((value) => meshTransformControl.visible = value);
-    gui.add(uiProperties, 'light transform control').onChange((value) => lightTransformControl.visible = value);
+    gui.add(uiProperties, 'mesh transform control').onChange((value) => meshTransformControl.getHelper().visible = value);
+    gui.add(uiProperties, 'light transform control').onChange((value) => lightTransformControl.getHelper().visible = value);
 
     window.addEventListener('resize', () => {
         const width = window.innerWidth;

@@ -1,26 +1,24 @@
-import express from 'express'
-import path from 'path'
-import http from 'http'
+import express from 'express';
+import path from 'path';
 
-const port: number = 3000
-const hostname:string = '127.0.0.1'
+const port: number = 3000;
+const hostname: string = '127.0.0.1';
 
 class App {
-    private server: http.Server
-    private port: number
+  private port: number;
+  private app: express.Express;
 
-    constructor(port: number) {
-        this.port = port
-        const app = express()
-        app.use(express.static(path.join(__dirname, '../client')))
-        this.server = new http.Server(app)
-    }
+  constructor(portNumber: number) {
+    this.port = portNumber;
+    this.app = express();
+    this.app.use(express.static(path.join(__dirname, '../client')));
+  }
 
-    public Start() {
-        this.server.listen(this.port, () => {
-            console.log(`Server running at http://${hostname}:${port}/`)
-        })
-    }
+  public Start() {
+    this.app.listen(this.port, () => {
+      console.log(`Server running at http://${hostname}:${port}/`);
+    });
+  }
 }
 
-new App(port).Start()
+new App(port).Start();
