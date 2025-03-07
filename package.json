@@ -19,7 +19,7 @@
   "devDependencies": {
     "@types/dat.gui": "^0.7.13",
     "@types/express": "^5.0.0",
-    "@types/node": "^22.13.8",
+    "@types/node": "^22.13.9",
     "@types/three": "^0.174.0",
     "copyfiles": "^2.4.1",
     "dat.gui": "^0.7.9",
